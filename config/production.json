@@ -1,7 +1,8 @@
 {
   "jwtPrivateKey": "usmanPrivateKey",
   "db1": "mongodb://localhost/ecommerce",
-  "db": "mongodb+srv://muqba:khuzaima@cluster0.j88r4.mongodb.net/ecommerce",
+  "db2": "mongodb+srv://muqba:khuzaima@cluster0.j88r4.mongodb.net/test",
+  "db": "mongodb+srv://muqba:khuzaima@cluster0.j88r4.mongodb.net/ecommerce?retryWrites=true&w=majority",
   "sessionSecret": "usmanSessionSecretCat",
   "env": "production"
 }

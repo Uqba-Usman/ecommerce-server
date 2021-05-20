@@ -59,6 +59,7 @@ mongoose
     useUnifiedTopology: true,
     socketTimeoutMS: 0,
     connectionTimeout: 0,
+    // rejectUnauthorized: false,
   })
   .then(() => {
     // winston.info(`Connected to ${db}...`);
