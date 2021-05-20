@@ -2,6 +2,6 @@
   "jwtPrivateKey": "usmanPrivateKey",
   "db1": "mongodb://localhost/ecommerce",
   "db": "mongodb+srv://muqba:khuzaima@cluster0.j88r4.mongodb.net/ecommerce",
-  "env": "development",
-  "port": 4000
+  "sessionSecret": "usmanSessionSecretCat",
+  "env": "production"
 }

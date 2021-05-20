@@ -5,10 +5,20 @@ var router = express.Router();
 
 /* GET home page. */
 router.get("/", async (req, res, next) => {
-  const data = {
-    title: "Product",
-  };
-  res.send(data);
+  const products = await Product.find({});
+  console.log("Products", products);
+  res.send(JSON.stringify(products));
+});
+
+router.get("/:id", async (req, res, next) => {
+  console.log("Prams", req.params.id);
+  try {
+    const product = await Product.findOne({ _id: req.params.id });
+    console.log("Products", product);
+    res.send(JSON.stringify(product));
+  } catch (error) {
+    console.log("ERROR: ", error);
+  }
 });
 
 router.post("/", async (req, res, next) => {
