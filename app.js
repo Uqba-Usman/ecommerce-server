@@ -14,8 +14,8 @@ var usersRouter = require("./routes/users");
 var app = express();
 
 // view engine setup
-// app.set("views", path.join(__dirname, "views"));
-// app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
 var corsOptions = {
   // origin: ["https://minicab-client.herokuapp.com/", "http://localhost:3000/"],
   origin: "*",
