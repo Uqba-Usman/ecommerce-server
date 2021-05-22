@@ -14,7 +14,7 @@ router.get("/:id", async (req, res, next) => {
   console.log("Prams", req.params.id);
   try {
     const product = await Product.findOne({ _id: req.params.id });
-    console.log("Products", product);
+    console.log("Product", product);
     res.send(JSON.stringify(product));
   } catch (error) {
     console.log("ERROR: ", error);
@@ -43,6 +43,38 @@ router.post("/", async (req, res, next) => {
   // res.send(products);
 });
 
+router.put("/:id", async (req, res, next) => {
+  try {
+    console.log("Param id", req.params.id, "BODY", req.body);
+    const product = await Product.findOne({ _id: req.params.id });
+    console.log("Product Before Updation", product);
+
+    product.title = req.body.title;
+    product.description = req.body.description;
+    product.price = req.body.price;
+    product.category = req.body.category;
+    product.salePercent = req.body.salePercent;
+    product.saleApply = req.body.saleApply;
+    product.isHotProduct = req.body.isHotProduct;
+
+    console.log("Product after updation", product);
+    await product.save();
+    res.send(product);
+  } catch (err) {
+    console.log("Error", err);
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    console.log("Param id", req.params.id, "BODY", req.body);
+    const product = await Product.findOneAndDelete({ _id: req.params.id });
+    console.log("Product deleted", product);
+    res.send(product);
+  } catch (error) {
+    console.log("Error deleting product", error);
+  }
+});
 module.exports = router;
 
 // {
