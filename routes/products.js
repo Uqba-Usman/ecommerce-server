@@ -32,6 +32,7 @@ router.post("/", async (req, res, next) => {
     product.salePercent = req.body.salePercent;
     product.saleApply = req.body.saleApply;
     product.isHotProduct = req.body.isHotProduct;
+    product.selectedFile = req.body.selectedFile;
 
     console.log("Product", product);
     await product.save();

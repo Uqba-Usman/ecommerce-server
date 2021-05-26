@@ -25,6 +25,10 @@ const productSchema = new mongoose.Schema(
     salePercent: {
       type: Number,
     },
+    selectedFile: {
+      type: String,
+      required: true,
+    },
     saleApply: Boolean,
     isHotProduct: Boolean,
   },
