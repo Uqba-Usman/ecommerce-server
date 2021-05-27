@@ -215,7 +215,7 @@ const AdminTable = () => {
         }}
       />
     ),
-    []
+    [data]
   );
 
   return (
