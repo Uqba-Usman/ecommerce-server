@@ -62,7 +62,9 @@ const AdminTable = () => {
 
     const columnDelimiter = ",";
     const lineDelimiter = "\n";
-    const keys = Object.keys(data[0]);
+    console.log("DATA INSIDE CSV: ", data);
+    // const keys = Object.keys(data[0]);
+    const keys = ["title", "description", "price", "category"];
 
     result = "";
     result += keys.join(columnDelimiter);
@@ -168,10 +170,17 @@ const AdminTable = () => {
     }
   }, [data]);
 
+  const getProductsServiceData = async () => {
+    const response = await productService.getAllProducts();
+    console.log("RESP", response);
+    setData(response);
+  };
+
   useEffect(() => {
-    productService.getAllProducts().then((response) => {
-      setData(response);
-    });
+    // productService.getAllProducts().then((response) => {
+    //   setData(response);
+    // });
+    getProductsServiceData();
   }, []);
 
   const filteredItems = body.filter(
@@ -198,7 +207,14 @@ const AdminTable = () => {
   }, [filterText, resetPaginationToggle]);
 
   const actionsMemo = React.useMemo(
-    () => <Export onExport={() => downloadCSV(filteredItems)} />,
+    () => (
+      <Export
+        onExport={() => {
+          console.log("FILETERDD INSIDE DOWNLOAD", filteredItems);
+          downloadCSV(filteredItems);
+        }}
+      />
+    ),
     []
   );
 
