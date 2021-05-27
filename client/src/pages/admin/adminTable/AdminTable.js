@@ -210,8 +210,8 @@ const AdminTable = () => {
     () => (
       <Export
         onExport={() => {
-          console.log("FILETERDD INSIDE DOWNLOAD", filteredItems);
-          downloadCSV(filteredItems);
+          console.log("FILETERDD INSIDE DOWNLOAD", data);
+          downloadCSV(data);
         }}
       />
     ),
