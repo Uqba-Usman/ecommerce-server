@@ -16,6 +16,12 @@ var app = express();
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
+
+app.use(express.static(path.join(__dirname, "client/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build/index.html"));
+});
+
 var corsOptions = {
   // origin: ["https://minicab-client.herokuapp.com/", "http://localhost:3000/"],
   origin: "*",
@@ -33,7 +39,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+// app.use("/", indexRouter);
 app.use("/api/products", productsRouter);
 app.use("/users", usersRouter);
 
