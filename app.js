@@ -7,9 +7,14 @@ var config = require("config");
 const mongoose = require("mongoose");
 var cors = require("cors");
 
+const busboy = require("connect-busboy");
+const busboyBodyParser = require("busboy-body-parser");
+
 var indexRouter = require("./routes/index");
 var productsRouter = require("./routes/products");
 var usersRouter = require("./routes/users");
+var easypaisaRouter = require("./routes/easypaisa");
+var jazzcashRouter = require("./routes/jazzcashRoute");
 
 var app = express();
 
@@ -28,15 +33,20 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions)); // include before other routes
 
+app.use(busboy());
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-// app.use("/", indexRouter);
+app.use(busboyBodyParser());
+app.use("/easypaisa-test", indexRouter);
 app.use("/api/products", productsRouter);
-app.use("/users", usersRouter);
+app.use("/api/upload", usersRouter);
+app.use("/api/easypaisa", easypaisaRouter);
+app.use("/api/jazzcash-test", jazzcashRouter);
 
 app.use(express.static(path.join(__dirname, "client/build")));
 app.get("*", (req, res) => {

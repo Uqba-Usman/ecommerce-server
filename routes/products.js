@@ -6,7 +6,7 @@ var router = express.Router();
 /* GET home page. */
 router.get("/", async (req, res, next) => {
   const products = await Product.find({});
-  console.log("Products", products);
+
   res.send(JSON.stringify(products));
 });
 
