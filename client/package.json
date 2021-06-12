@@ -8,6 +8,8 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.1",
+    "downloadjs": "^1.4.7",
+    "js-file-download": "^0.4.12",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.0",
@@ -45,6 +47,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "http://localhost:4000"
+  }
 }

@@ -16,6 +16,12 @@ import ShoppingCart from "./pages/products/shoppingCart/ShoppingCart";
 import AddNewProduct from "./pages/admin/AddNewProduct";
 import AdminTable from "./pages/admin/adminTable/AdminTable";
 import UpdateProduct from "./pages/products/updateProduct/UpdateProduct";
+import Checkout from "./pages/products/checkout/Checkout";
+import SUpload from "./SUpload";
+import SDownload from "./SDownload";
+import EasypaisaTest from "./EasypaisaTest";
+import JazzcashCheckout from "./pages/JazzcashCheckout";
+import CheckoutComplete from "./pages/products/checkout/CheckoutComplete";
 // import AddNewProduct from "./component/products/AddNewProduct";
 function App() {
   return (
@@ -33,9 +39,15 @@ function App() {
             component={UpdateProduct}
             exact
           />
+          <Route path="/checkoutComplete" component={CheckoutComplete} exact />
+          <Route path="/jazzcashCheckout" component={JazzcashCheckout} exact />
+          <Route path="/easypaisa-test" component={EasypaisaTest} exact />
+          <Route path="/sdownload" component={SDownload} exact />
+          <Route path="/supload" component={SUpload} exact />
           <Route path="/productsTable" component={AdminTable} exact />
           <Route path="/addNewProduct" component={AddNewProduct} exact />
           <Route path="/shoppingCart" component={ShoppingCart} exact />
+          <Route path="/checkout" component={Checkout} exact />
           <Route path="/addNewProduct" component={AddNewProduct} exact />
           <Route
             path="/products/productDetail/:id"

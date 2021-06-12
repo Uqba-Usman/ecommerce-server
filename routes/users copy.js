@@ -8,11 +8,10 @@ const Busboy = require("busboy");
 var Buffer = require("buffer/").Buffer;
 var isBuffer = require("is-buffer");
 var Blob = require("blob");
-const request = require("request");
+
 const BUCKET_NAME = "altcabs-server";
 const IAM_USER_KEY = config.get("iamUser");
 const IAM_USER_SECRET = config.get("iamSecret");
-const fs = require("fs");
 
 function uploadToS3(file) {
   console.log("Uploading", IAM_USER_SECRET, file);
@@ -54,6 +53,20 @@ router.post("/", function (req, res, next) {
   // The file upload has completed
   busboy.on("finish", function () {
     console.log("Upload finished");
+    // Your files are stored in req.files. In this case,
+    // you only have one and it's req.files.element2:
+    // This returns:
+    // {
+    //    element2: {
+    //      data: ...contents of the file...,
+    //      name: 'Example.jpg',
+    //      encoding: '7bit',
+    //      mimetype: 'image/png',
+    //      truncated: false,
+    //      size: 959480
+    //    }
+    // }
+    // Grabs your file object from the request.
     console.log("REQ: ", req.body);
     console.log("FILES: ", req.files);
     console.log("DATA: ", req.data);
@@ -88,10 +101,9 @@ router.post("/", function (req, res, next) {
 // });
 
 router.get("/", (req, res) => {
-  console.log("Inside");
   var bucketParams = {
     Bucket: BUCKET_NAME,
-    Key: `pp.jpg`,
+    Key: `foldername1/pp.jpg`,
   };
 
   let s3bucket = new AWS.S3({
@@ -100,83 +112,17 @@ router.get("/", (req, res) => {
     Bucket: BUCKET_NAME,
   });
 
-  s3bucket.getObject(bucketParams, async function (err, data) {
+  s3bucket.getObject(bucketParams, function (err, data) {
     if (err) {
       console.log("Error", err);
     } else {
       console.log("Success", data);
-      // console.log("CHECKING IS BUFFER: ", isBuffer(data.Body));
-      fs.writeFileSync("./ali.jpg", data.Body);
-      const filePath = "ali.jpg";
-      const result = await res.download(filePath);
-      console.log("RESULT", result);
-    }
-  });
-});
-
-function updateObject(file) {
-  console.log("Uploading", IAM_USER_SECRET, file);
-  let s3bucket = new AWS.S3({
-    accessKeyId: IAM_USER_KEY,
-    secretAccessKey: IAM_USER_SECRET,
-    Bucket: BUCKET_NAME,
-  });
-  var params = {
-    Bucket: BUCKET_NAME,
-    Key: `${file.name}`,
-    Body: file.data,
-  };
-
-  s3bucket.putObject(params, function (err, data) {
-    if (err) {
-      console.log("error in callback");
-      console.log(err);
-    }
-    console.log("success");
-    console.log(data);
-  });
-}
-
-router.put("/update", (req, res) => {
-  var busboy = new Busboy({ headers: req.headers });
-  // The file upload has completed
-  busboy.on("finish", function () {
-    console.log("Upload finished");
-    console.log("REQ: ", req.body);
-    console.log("FILES: ", req.files);
-    console.log("DATA: ", req.data);
-    const file = req.files.file;
-    console.log(file);
-    // uploadToS3(file);
-    updateObject(file);
-  });
-  req.pipe(busboy);
-});
-
-router.delete("/", (req, res) => {
-  console.log("Inside");
-
-  let s3bucket = new AWS.S3({
-    accessKeyId: IAM_USER_KEY,
-    secretAccessKey: IAM_USER_SECRET,
-    Bucket: BUCKET_NAME,
-  });
-  var params = {
-    Bucket: BUCKET_NAME /* required */,
-    Key: "1622706470180Screenshot (194).png",
-  };
-
-  s3bucket.deleteObject(params, function (err, data) {
-    if (err) console.log(err, err.stack);
-    // an error occurred
-    else {
-      console.log(data);
+      console.log("CHECKING IS BUFFER: ", isBuffer(data.Body));
+      // var blob = new Blob([data.body]);
+      // console.log("BLOB: ", blob);
+      // res.download(data.body);
       res.send(data);
-    } // successful response
-    /*
-    data = {
     }
-    */
   });
 });
 
