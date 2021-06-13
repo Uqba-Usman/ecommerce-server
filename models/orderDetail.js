@@ -5,26 +5,19 @@ const mongoose = require("mongoose");
 
 const orderDetailSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    number: {
-      type: Number,
-      required: true,
-    },
-    address: {
-      type: String,
-      required: true,
-    },
     orderTotal: {
       type: Number,
     },
-    orderProducts: [],
+    orderProducts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
+    shipTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "ShippingDetail",
+    },
   },
   { timestamps: true }
 );
@@ -45,5 +38,5 @@ function validateOrderDetail(orderDetail) {
   return schema.validate(orderDetail);
 }
 
-exports.Product = OrderDetail;
+exports.OrderDetail = OrderDetail;
 exports.validate = validateOrderDetail;

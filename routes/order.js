@@ -3,31 +3,22 @@ const { default: axios } = require("axios");
 var router = express.Router();
 const request = require("request");
 const date = require("date-and-time");
-const { Product } = require("../models/product");
 const sha256 = require("js-sha256");
 var config = require("config");
+const { OrderDetail } = require("../models/orderDetail");
+const { Feedback } = require("../models/feedback");
+const { ShippingDetail } = require("../models/shippingDetail");
 
 /* GET home page. */
 router.post("/", function (req, res, next) {
-  console.log("GET");
-  // let unixEpochTime = seconds * 1000;
+  console.log("REQ BODY: ", req.body);
   const dd = new Date();
-  console.log("Today: ", dd);
-
   const pp_TxnDateTime = date.format(dd, "YYYYMMDDHHmmss");
-  console.log("formattedDateTime:", pp_TxnDateTime);
-
   const expirtyDate = date.addDays(dd, 40);
   const pp_TxnExpiryDateTime = date.format(expirtyDate, "YYYYMMDDHHmmss");
-  console.log("pp_TxnExpiryDateTime: ", pp_TxnExpiryDateTime);
-
   const pp_TxnRefNo = "T" + pp_TxnDateTime;
-  console.log("pp_TxnRefNo: ", pp_TxnRefNo);
-
   const pp_Amount = 30000;
-  console.log("temp_amount: ", pp_Amount);
 
-  const integritySalt = config.get("JAZZCASH_INTEGERITY_SALT");
   const str = `${config.get("JAZZCASH_INTEGERITY_SALT")}&${pp_Amount}&billRef&${
     req.body.cnic
   }&Description&${config.get("JAZZCASH_LANGUAGE")}&${config.get(
@@ -35,9 +26,6 @@ router.post("/", function (req, res, next) {
   )}&${req.body.mobileNumber}&${config.get("JAZZCASH_PASSWORD")}&${config.get(
     "JAZZCASH_CURRENCY_CODE"
   )}&${pp_TxnDateTime}&${pp_TxnExpiryDateTime}&${pp_TxnRefNo}`;
-
-  console.log("STR: ", str);
-
   const securehash = sha256(str + config.get("JAZZCASH_INTEGERITY_SALT"));
   console.log("SEUCURE HASH Hex: ", securehash);
 
@@ -64,18 +52,55 @@ router.post("/", function (req, res, next) {
     pp_MobileNumber: req.body.mobileNumber,
     pp_CNIC: req.body.cnic,
   };
-  // res.send(securehash);
 
   axios
     .post(
       "https://sandbox.jazzcash.com.pk/ApplicationAPI/API/2.0/Purchase/DoMWalletTransaction",
       passData
     )
-    .then((response) => {
-      console.log("RESPONSE: ", response);
-      res.send(response.data);
+    .then(async (response) => {
+      console.log("RESPONSE: ", response.data);
+      let shippingDetail = new ShippingDetail();
+      shippingDetail.name = req.body.shippingDetail.name;
+      shippingDetail.email = req.body.shippingDetail.email;
+      shippingDetail.phone = req.body.shippingDetail.phone;
+      shippingDetail.address = req.body.shippingDetail.address;
+      const returnShippingDetail = await shippingDetail.save();
+      console.log("RET: ", returnShippingDetail);
+      console.log("RET Created At: ", returnShippingDetail.createdAt);
+      const cAt = date.format(
+        returnShippingDetail.createdAt,
+        "YYYY-MM-DD HH:mm:ss"
+      );
+      console.log("RET Cat: ", cAt);
+      let orderDetail = new OrderDetail();
+      orderDetail.orderProducts = req.body.orderProducts;
+      orderDetail.orderTotal = req.body.orderTotal;
+      orderDetail.shipTo = returnShippingDetail._id;
+      const orderreturnSave = await orderDetail.save();
+
+      console.log("orderreturnSave: ", orderreturnSave);
+
+      // const orderGet = await OrderDetail.find({})
+      //   .populate("orderProducts")
+      //   .populate("shipTo");
+      // console.log("ORDER GET: ", orderGet);
+      res.send(orderreturnSave);
     })
     .catch((err) => console.log("ERROR: ", err));
 });
 
+router.post("/feedback", async (req, res, next) => {
+  console.log("REQ BODY: ", req.body);
+
+  let feedback = new Feedback();
+  feedback.comments = req.body.comments;
+  feedback.postedBy = req.body.postedBy;
+  feedback.ratingValue = req.body.ratingValue;
+
+  const returnFeedback = await feedback.save();
+  console.log("returnFeedback", returnFeedback);
+
+  res.send(returnFeedback);
+});
 module.exports = router;

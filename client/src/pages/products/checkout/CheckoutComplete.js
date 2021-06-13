@@ -1,6 +1,25 @@
 import React from "react";
+import BeautyStars from "beauty-stars";
+import orderService from "../../../services/OrderService";
 
-function CheckoutComplete() {
+function CheckoutComplete(props) {
+  const [ratingValue, setRatingValue] = React.useState(3);
+  const [comments, setComments] = React.useState("");
+
+  const handleSubmit = () => {
+    const data = {
+      ratingValue,
+      comments,
+      postedBy: props.history.location.sendData,
+    };
+    orderService
+      .addFeedback(data)
+      .then((response) => {
+        console.log("RES:", response);
+        props.history.push("/");
+      })
+      .catch((error) => console.log("ERROR:", error));
+  };
   return (
     <>
       {/* Page title */}
@@ -50,6 +69,53 @@ function CheckoutComplete() {
         </div>
       </section>
       {/* end: SHOP CHECKOUT COMPLETED */}
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-5 center p-50 background-white b-r-6">
+            <h3>How you rate us!!!</h3>
+            <div className="col-md-12">
+              <BeautyStars
+                inactiveColor="#565c6e"
+                activeColor="#e6d815"
+                value={ratingValue}
+                // editable={!booking.isRated}
+                size={25}
+                gap={12}
+                onChange={(newValue) => {
+                  setRatingValue(newValue);
+                }}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="" className="form-label">
+                <bold> Comments</bold>
+              </label>
+              <textarea
+                name=""
+                id=""
+                cols="15"
+                rows="6"
+                // disabled={booking.isRated}
+                className="form-control form-border"
+                value={comments}
+                onChange={(e) => {
+                  setComments(e.target.value);
+                  console.log("CHANGE VALUE", e.target.value);
+                }}
+              ></textarea>
+            </div>
+
+            <button
+              className="btn btn-info m-5"
+              // disabled={booking.isRated}
+              onClick={handleSubmit}
+            >
+              Submit Feedback
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

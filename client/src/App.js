@@ -10,22 +10,36 @@ import {
 import PoloLayout from "./component/polo/pololayout/PoloLayout";
 import RBNavbar from "./RBNavbar/RBNavbar";
 import PoloTopBar from "./component/polo/pololayout/PoloTopBar";
-import Products from "./component/products/Products";
+import Products from "./pages/products/products/Products";
 import ProductDetail from "./pages/products/productDetail/ProductDetail";
 import ShoppingCart from "./pages/products/shoppingCart/ShoppingCart";
 import AddNewProduct from "./pages/admin/AddNewProduct";
 import AdminTable from "./pages/admin/adminTable/AdminTable";
 import UpdateProduct from "./pages/products/updateProduct/UpdateProduct";
-import Checkout from "./pages/products/checkout/Checkout";
+import ShippingDetails from "./pages/products/shippingDetails/ShippingDetails";
 import SUpload from "./SUpload";
 import SDownload from "./SDownload";
 import EasypaisaTest from "./EasypaisaTest";
-import JazzcashCheckout from "./pages/JazzcashCheckout";
+import JazzcashCheckout from "./pages/products/jazzcashCheckout/JazzcashCheckout";
 import CheckoutComplete from "./pages/products/checkout/CheckoutComplete";
+import Contact from "./pages/contact/Contact";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import AddNewProduct from "./component/products/AddNewProduct";
 function App() {
   return (
     <Router>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <PoloTopBar />
       <RBNavbar />
       <div
@@ -39,6 +53,7 @@ function App() {
             component={UpdateProduct}
             exact
           />
+          <Route path="/contact" component={Contact} exact />
           <Route path="/checkoutComplete" component={CheckoutComplete} exact />
           <Route path="/jazzcashCheckout" component={JazzcashCheckout} exact />
           <Route path="/easypaisa-test" component={EasypaisaTest} exact />
@@ -47,7 +62,7 @@ function App() {
           <Route path="/productsTable" component={AdminTable} exact />
           <Route path="/addNewProduct" component={AddNewProduct} exact />
           <Route path="/shoppingCart" component={ShoppingCart} exact />
-          <Route path="/checkout" component={Checkout} exact />
+          <Route path="/shippingDetails" component={ShippingDetails} exact />
           <Route path="/addNewProduct" component={AddNewProduct} exact />
           <Route
             path="/products/productDetail/:id"
