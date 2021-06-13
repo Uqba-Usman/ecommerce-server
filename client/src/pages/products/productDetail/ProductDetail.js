@@ -29,7 +29,7 @@ function ProductDetail(props) {
     console.log(quantity);
   };
 
-  const handleCart = () => {
+  const handleCart = async () => {
     var cart = [];
     if (cookies.get("cart")) cart = cookies.get("cart");
     console.log("Product: ", product);
