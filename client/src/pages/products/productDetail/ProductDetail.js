@@ -32,7 +32,10 @@ function ProductDetail(props) {
   const handleCart = () => {
     var cart = [];
     if (cookies.get("cart")) cart = cookies.get("cart");
+    console.log("Product: ", product);
     const newCart = { ...product, quantity };
+    await delete newCart.selectedFile;
+    console.log("newCart: ", newCart);
 
     if (cart.some((exist) => exist._id === newCart._id)) {
       var index = cart.findIndex((c) => c._id == newCart._id);
@@ -43,13 +46,13 @@ function ProductDetail(props) {
       } else if (cart[index].quantity != newCart.quantity) {
         console.log("Quantity is not Same");
         cart[index] = newCart;
-        cookies.set("cart", cart, { path: "/" });
+        await cookies.set("cart", cart);
         return props.history.push("/shoppingCart");
       }
     }
 
     cart.push(newCart);
-    cookies.set("cart", cart, { path: "/" });
+    await cookies.set("cart", cart);
 
     const saveCookieData = cookies.get("cart");
     console.log("saveCookieData", saveCookieData);
@@ -138,7 +141,7 @@ function ProductDetail(props) {
                 <h6>Place Order</h6>
                 <a
                   className="btn btn-info"
-                  href="/shoppingCart"
+                  // href="/shoppingCart"
                   onClick={handleCart}
                 >
                   <i className="icon-shopping-cart" /> Place Order

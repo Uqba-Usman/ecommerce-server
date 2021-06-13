@@ -1,8 +1,7 @@
 {
   "jwtPrivateKey": "usmanPrivateKey",
-  "db": "mongodb://localhost/ecommerce",
-  "db2": "mongodb+srv://muqba:khuzaima@cluster0.j88r4.mongodb.net/test?retryWrites=true&w=majority",
-  "db1": "mongodb+srv://muqba:khuzaima@cluster0.j88r4.mongodb.net/ecommerce?retryWrites=true&w=majority",
+  "db1": "mongodb://localhost/ecommerce",
+  "db": "mongodb+srv://muqba:khuzaima@cluster0.j88r4.mongodb.net/ecommerce?retryWrites=true&w=majority",
   "env": "development",
   "port": 4000,
   "iamUser": "AKIAWMQXFPATJA3OM6EK",
