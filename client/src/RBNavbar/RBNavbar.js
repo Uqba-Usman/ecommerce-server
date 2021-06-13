@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import adminService from "../services/AdminService";
 
 function RBNavbar() {
   return (
@@ -17,13 +18,36 @@ function RBNavbar() {
           {/* <Nav.Link href="#features">Features</Nav.Link>
           <Nav.Link href="#pricing">Pricing</Nav.Link> */}
         </Nav>
-        <Nav>
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/contact">Contact</Nav.Link>
-          <Nav.Link href="/addNewProduct">Add New Product</Nav.Link>
+        {/* <Nav> */}
+        {adminService.isAdmin() ? (
+          <Nav>
+            <Nav.Link href="/addNewProduct">Add New Product</Nav.Link>
+            <Nav.Link href="/productsTable">Admin Products Table</Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                adminService.logout();
+                // window.location.reload();
+                window.location.href = "/";
+              }}
+            >
+              Logout
+            </Nav.Link>
+          </Nav>
+        ) : (
+          <Nav>
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/adminLogin">Admin Login</Nav.Link>
+            <Nav.Link href="/shoppingCart">Cart</Nav.Link>
+          </Nav>
+        )}
+
+        {/* <Nav.Link href="/contact">Contact</Nav.Link> */}
+        {/* {adminService.isAdmin() && (
+            <Nav.Link href="/addNewProduct">Add New Product</Nav.Link>
+          )}
           <Nav.Link href="/productsTable">Admin Products Table</Nav.Link>
-          <Nav.Link href="/shoppingCart">Cart</Nav.Link>
-        </Nav>
+          <Nav.Link href="/shoppingCart">Cart</Nav.Link> */}
+        {/* </Nav> */}
       </Navbar.Collapse>
     </Navbar>
   );

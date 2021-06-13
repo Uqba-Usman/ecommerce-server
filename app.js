@@ -13,6 +13,7 @@ const busboyBodyParser = require("busboy-body-parser");
 var productsRouter = require("./routes/products");
 
 var orderRouter = require("./routes/order");
+var userRouter = require("./routes/user");
 
 var app = express();
 
@@ -43,6 +44,7 @@ app.use(busboyBodyParser());
 
 app.use("/api/products", productsRouter);
 app.use("/api/order", orderRouter);
+app.use("/api/user", userRouter);
 
 app.use(express.static(path.join(__dirname, "client/build")));
 app.get("*", (req, res) => {

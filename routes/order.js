@@ -49,8 +49,8 @@ router.post("/", function (req, res, next) {
     ppmpf_3: "",
     ppmpf_4: "",
     ppmpf_5: "",
-    pp_MobileNumber: req.body.mobileNumber,
-    pp_CNIC: req.body.cnic,
+    pp_MobileNumber: req.body.jazzcashDetail.jazzcashPhoneNo,
+    pp_CNIC: req.body.jazzcashDetail.jazzcashCNIC,
   };
 
   axios
@@ -59,6 +59,10 @@ router.post("/", function (req, res, next) {
       passData
     )
     .then(async (response) => {
+      console.log("RESPONSE: ", response.data);
+      if (response.data.pp_ResponseCode != 000) {
+        return res.status(400).send("Error In payment");
+      }
       console.log("RESPONSE: ", response.data);
       let shippingDetail = new ShippingDetail();
       shippingDetail.name = req.body.shippingDetail.name;

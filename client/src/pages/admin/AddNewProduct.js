@@ -95,16 +95,17 @@ function AddNewProduct(props) {
       selectedFile,
     };
     console.log("DATA", sendData);
-    // productService
-    //   .newProduct(sendData)
-    //   .then((response) => {
-    //     toast.success("New product added successfully");
-    //     console.log("Response: ", response);
-    //     props.history.push("/");
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error: ", error);
-    //   });
+    productService
+      .newProduct(sendData)
+      .then((response) => {
+        toast.success("New product added successfully");
+        console.log("Response: ", response);
+        props.history.push("/productsTable");
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+        toast.error("Error Occured: Product not added.");
+      });
 
     console.log("Validate Successfully");
   };

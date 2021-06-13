@@ -60,16 +60,17 @@ function UpdateProduct(props) {
     }
 
     console.log("DATA", product);
-    // productService
-    //   .updateProduct(product._id, product)
-    //   .then((response) => {
-    //     toast.success("Product updated successfully");
-    //     props.history.push("/productsTable");
-    //     console.log("Response: ", response);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error: ", error);
-    //   });
+    productService
+      .updateProduct(product._id, product)
+      .then((response) => {
+        toast.success("Product updated successfully");
+        props.history.push("/productsTable");
+        console.log("Response: ", response);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+        toast.error("Some Error Occured: Product Not Updated");
+      });
   };
 
   const handleChange = async (e) => {

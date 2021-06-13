@@ -38,7 +38,8 @@ router.post("/", async (req, res, next) => {
     await product.save();
     res.send(product);
   } catch (error) {
-    console.log("Error", error);
+    console.log("Error", error._message);
+    res.status(400).send(error._message);
   }
 
   // res.send(products);
@@ -57,6 +58,7 @@ router.put("/:id", async (req, res, next) => {
     product.salePercent = req.body.salePercent;
     product.saleApply = req.body.saleApply;
     product.isHotProduct = req.body.isHotProduct;
+    product.selectedFile = req.body.selectedFile;
 
     console.log("Product after updation", product);
     await product.save();

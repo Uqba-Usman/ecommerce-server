@@ -1,6 +1,7 @@
 import React from "react";
 import BeautyStars from "beauty-stars";
 import orderService from "../../../services/OrderService";
+import { toast } from "react-toastify";
 
 function CheckoutComplete(props) {
   const [ratingValue, setRatingValue] = React.useState(3);
@@ -16,9 +17,13 @@ function CheckoutComplete(props) {
       .addFeedback(data)
       .then((response) => {
         console.log("RES:", response);
+        toast.success("Feedback Sent!!!");
         props.history.push("/");
       })
-      .catch((error) => console.log("ERROR:", error));
+      .catch((error) => {
+        console.log("ERROR:", error);
+        toast.error("Error in feedback sending");
+      });
   };
   return (
     <>

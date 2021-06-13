@@ -8,10 +8,16 @@ function SingleProduct({ product }) {
         <div className="product">
           <div className="product-image">
             <a href={`/products/productDetail/${product._id}`}>
-              <img src="polo/images/shop/products/1.jpg"></img>
+              <img
+                src={product.selectedFile}
+                //  src="polo/images/shop/products/1.jpg"
+              ></img>
             </a>
             <a href={`/products/productDetail/${product._id}`}>
-              <img src="polo/images/shop/products/2.jpg"></img>
+              <img
+                src={product.selectedFile}
+                src="polo/images/shop/products/2.jpg"
+              ></img>
             </a>
             {product.isHotProduct && <span className="product-hot">HOT</span>}
             {product.newProduct && <span className="product-new">NEW</span>}

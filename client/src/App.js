@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -7,9 +6,8 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
-import PoloLayout from "./component/polo/pololayout/PoloLayout";
+
 import RBNavbar from "./RBNavbar/RBNavbar";
-import PoloTopBar from "./component/polo/pololayout/PoloTopBar";
 import Products from "./pages/products/products/Products";
 import ProductDetail from "./pages/products/productDetail/ProductDetail";
 import ShoppingCart from "./pages/products/shoppingCart/ShoppingCart";
@@ -17,15 +15,15 @@ import AddNewProduct from "./pages/admin/AddNewProduct";
 import AdminTable from "./pages/admin/adminTable/AdminTable";
 import UpdateProduct from "./pages/products/updateProduct/UpdateProduct";
 import ShippingDetails from "./pages/products/shippingDetails/ShippingDetails";
-import SUpload from "./SUpload";
-import SDownload from "./SDownload";
-import EasypaisaTest from "./EasypaisaTest";
 import JazzcashCheckout from "./pages/products/jazzcashCheckout/JazzcashCheckout";
 import CheckoutComplete from "./pages/products/checkout/CheckoutComplete";
-import Contact from "./pages/contact/Contact";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import AddNewProduct from "./component/products/AddNewProduct";
+import AdminLogin from "./pages/admin/AdminLogin";
+import adminService from "./services/AdminService";
+import RBTopbar from "./RBNavbar/RBTopbar";
+import RBFooter from "./RBNavbar/RBFooter";
+
 function App() {
   return (
     <Router>
@@ -40,7 +38,8 @@ function App() {
         draggable
         pauseOnHover
       />
-      <PoloTopBar />
+
+      <RBTopbar />
       <RBNavbar />
       <div
         id="page-content"
@@ -48,30 +47,70 @@ function App() {
         style={{ minHeight: "200px" }}
       >
         <Switch>
-          <Route
+          {adminService.isAdmin() ? (
+            <Switch>
+              {" "}
+              <Route
+                path="/products/updateProduct/:id"
+                component={UpdateProduct}
+                exact
+              />
+              <Route path="/productsTable" component={AdminTable} exact />
+              <Route path="/addNewProduct" component={AddNewProduct} exact />
+            </Switch>
+          ) : (
+            <Switch>
+              <Route path="/adminLogin" component={AdminLogin} exact />
+              <Route
+                path="/checkoutComplete"
+                component={CheckoutComplete}
+                exact
+              />
+              <Route
+                path="/jazzcashCheckout"
+                component={JazzcashCheckout}
+                exact
+              />
+              <Route path="/shoppingCart" component={ShoppingCart} exact />
+              <Route
+                path="/shippingDetails"
+                component={ShippingDetails}
+                exact
+              />
+              <Route
+                path="/products/productDetail/:id"
+                component={ProductDetail}
+                exact
+              />
+              <Route path="/" component={Products} exact />
+            </Switch>
+          )}
+          {/* <Route
             path="/products/updateProduct/:id"
             component={UpdateProduct}
             exact
-          />
-          <Route path="/contact" component={Contact} exact />
-          <Route path="/checkoutComplete" component={CheckoutComplete} exact />
-          <Route path="/jazzcashCheckout" component={JazzcashCheckout} exact />
-          <Route path="/easypaisa-test" component={EasypaisaTest} exact />
-          <Route path="/sdownload" component={SDownload} exact />
-          <Route path="/supload" component={SUpload} exact />
-          <Route path="/productsTable" component={AdminTable} exact />
-          <Route path="/addNewProduct" component={AddNewProduct} exact />
-          <Route path="/shoppingCart" component={ShoppingCart} exact />
-          <Route path="/shippingDetails" component={ShippingDetails} exact />
-          <Route path="/addNewProduct" component={AddNewProduct} exact />
-          <Route
+          /> */}
+          {/* <Route path="/adminLogin" component={AdminLogin} exact /> */}
+          {/* <Route path="/contact" component={Contact} exact /> */}
+          {/* <Route path="/checkoutComplete" component={CheckoutComplete} exact />
+          <Route path="/jazzcashCheckout" component={JazzcashCheckout} exact /> */}
+          {/* <Route path="/easypaisa-test" component={EasypaisaTest} exact /> */}
+          {/* <Route path="/sdownload" component={SDownload} exact />
+          <Route path="/supload" component={SUpload} exact /> */}
+          {/* <Route path="/productsTable" component={AdminTable} exact />
+          <Route path="/addNewProduct" component={AddNewProduct} exact /> */}
+          {/* <Route path="/shoppingCart" component={ShoppingCart} exact />
+          <Route path="/shippingDetails" component={ShippingDetails} exact /> */}
+          {/* <Route path="/addNewProduct" component={AddNewProduct} exact /> */}
+          {/* <Route
             path="/products/productDetail/:id"
             component={ProductDetail}
             exact
           />
-          <Route path="/" component={Products} exact />
+          <Route path="/" component={Products} exact /> */}
         </Switch>
       </div>
+      <RBFooter />
     </Router>
   );
 }

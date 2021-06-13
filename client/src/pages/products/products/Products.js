@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
 import productService from "../../../services/ProductService";
 import { paginate } from "../../../component/pagination/paginate";
 import Pagination from "../../../component/pagination/Pagination";

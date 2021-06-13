@@ -62,7 +62,9 @@ const AdminTable = () => {
 
     const columnDelimiter = ",";
     const lineDelimiter = "\n";
-    const keys = Object.keys(data[0]);
+    console.log("Object.keys(data[0]): ", data);
+    console.log("ARRAY: ", array);
+    const keys = Object.keys(array[0]);
 
     result = "";
     result += keys.join(columnDelimiter);
@@ -162,6 +164,9 @@ const AdminTable = () => {
             category: b.category,
             description: b.description,
             price: b.price,
+            // saleApply: b.saleApply,
+            // isHotProduct: b.isHotProduct,
+            // salePercent: b.salePercent,
           };
         })
       );
@@ -198,7 +203,20 @@ const AdminTable = () => {
   }, [filterText, resetPaginationToggle]);
 
   const actionsMemo = React.useMemo(
-    () => <Export onExport={() => downloadCSV(filteredItems)} />,
+    () => (
+      <Export
+        onExport={() => {
+          productService
+            .getAllProducts()
+            .then((response) => {
+              // setData(response);
+              downloadCSV(response);
+            })
+            .catch((error) => console.log(error));
+          // downloadCSV(filteredItems);
+        }}
+      />
+    ),
     []
   );
 
