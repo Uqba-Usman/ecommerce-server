@@ -136,174 +136,18 @@ function ProductDetail(props) {
               </div>
               <div className="col-lg-6">
                 <h6>Place Order</h6>
-                <a className="btn" href="/shoppingCart" onClick={handleCart}>
+                <a
+                  className="btn btn-info"
+                  href="/shoppingCart"
+                  onClick={handleCart}
+                >
                   <i className="icon-shopping-cart" /> Place Order
                 </a>
               </div>
+              {/* <button className="btn btn-info">Place Order</button> */}
             </div>
           </div>
         </div>
-        {/* Product additional tabs */}
-        <div className="tabs tabs-folder">
-          <ul className="nav nav-tabs" id="myTab3" role="tablist">
-            <li className="nav-item">
-              <a
-                className="nav-link active show"
-                id="home-tab"
-                data-toggle="tab"
-                href="#home3"
-                role="tab"
-                aria-controls="home"
-                aria-selected="false"
-              >
-                <i className="fa fa-align-justify" />
-                Description
-              </a>
-            </li>
-
-            <li className="nav-item">
-              <a
-                className="nav-link"
-                id="contact-tab"
-                data-toggle="tab"
-                href="#contact3"
-                role="tab"
-                aria-controls="contact"
-                aria-selected="false"
-              >
-                <i className="fa fa-star" />
-                Reviews
-              </a>
-            </li>
-          </ul>
-          <div className="tab-content" id="myTabContent3">
-            <div
-              className="tab-pane fade active show"
-              id="home3"
-              role="tabpanel"
-              aria-labelledby="home-tab"
-            >
-              <p>{product.description}</p>
-            </div>
-
-            <div
-              className="tab-pane fade"
-              id="contact3"
-              role="tabpanel"
-              aria-labelledby="contact-tab"
-            >
-              <div className="comments" id="comments">
-                <div className="comment_number">
-                  Reviews <span>(3)</span>
-                </div>
-                <div className="comment-list">
-                  {/* Comment */}
-                  <div className="comment" id="comment-1">
-                    <div className="image">
-                      <img
-                        alt
-                        src="/polo/images/blog/author.jpg"
-                        className="avatar"
-                      />
-                    </div>
-                    <div className="text">
-                      <div className="product-rate">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star-half-o" />
-                      </div>
-                      <h5 className="name">John Doe</h5>
-                      <span className="comment_date">
-                        Posted at 15:32h, 06 December
-                      </span>
-                      <a className="comment-reply-link" href="#">
-                        Reply
-                      </a>
-                      <div className="text_holder">
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  {/* end: Comment */}
-                  {/* Comment */}
-                  <div className="comment" id="comment-1-1">
-                    <div className="image">
-                      <img
-                        alt
-                        src="/polo/images/blog/author2.jpg"
-                        className="avatar"
-                      />
-                    </div>
-                    <div className="text">
-                      <div className="product-rate">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star-half-o" />
-                      </div>
-                      <h5 className="name">John Doe</h5>
-                      <span className="comment_date">
-                        Posted at 15:32h, 06 December
-                      </span>
-                      <a className="comment-reply-link" href="#">
-                        Reply
-                      </a>
-                      <div className="text_holder">
-                        <p>
-                          It is a long established fact that a reader will be
-                          distracted by the readable content.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  {/* end: Comment */}
-                  {/* Comment */}
-                  <div className="comment" id="comment-1-2">
-                    <div className="image">
-                      <img
-                        alt
-                        src="/polo/images/blog/author3.jpg"
-                        className="avatar"
-                      />
-                    </div>
-                    <div className="text">
-                      <div className="product-rate">
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star" />
-                        <i className="fa fa-star-half-o" />
-                      </div>
-                      <h5 className="name">John Doe</h5>
-                      <span className="comment_date">
-                        Posted at 15:32h, 06 December
-                      </span>
-                      <a className="comment-reply-link" href="#">
-                        Reply
-                      </a>
-                      <div className="text_holder">
-                        <p>
-                          There are many variations of passages of Lorem Ipsum
-                          available, but the majority have suffered alteration
-                          in some form, by injected humour.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  {/* end: Comment */}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* end: Product additional tabs */}
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ var indexRouter = require("./routes/index");
 var productsRouter = require("./routes/products");
 var usersRouter = require("./routes/users");
 var easypaisaRouter = require("./routes/easypaisa");
-var jazzcashRouter = require("./routes/jazzcashRoute");
+var orderRouter = require("./routes/order");
 
 var app = express();
 
@@ -46,7 +46,7 @@ app.use("/easypaisa-test", indexRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/upload", usersRouter);
 app.use("/api/easypaisa", easypaisaRouter);
-app.use("/api/jazzcash-test", jazzcashRouter);
+app.use("/api/order", orderRouter);
 
 app.use(express.static(path.join(__dirname, "client/build")));
 app.get("*", (req, res) => {

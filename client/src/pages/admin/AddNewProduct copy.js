@@ -1,8 +1,6 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import FileBase from "react-file-base64";
-import Joi from "@hapi/joi";
-import InputField from "../../component/InputField";
 import productService from "./../../services/ProductService";
 import { toast } from "react-toastify";
 
@@ -12,17 +10,47 @@ function AddNewProduct(props) {
     price: "",
     category: "",
     description: "",
+    saleApply: "",
+    salePercent: "",
+    isHotProduct: "",
+    // selectedFile:"",
   });
 
   console.log("PROPS", props);
-
+  const [title, setTitle] = React.useState("");
+  const [price, setPrice] = React.useState("");
+  const [category, setCategory] = React.useState("");
+  const [description, setDescription] = React.useState("");
   const [saleApply, setSaleApply] = React.useState(true);
   const [isHotProduct, setIsHotProduct] = React.useState(false);
   const [salePercent, setSalePercent] = React.useState("");
   const [selectedFile, setSelectedFile] = React.useState("");
 
+  const handleSubmit = () => {
+    const sendData = {
+      title,
+      price,
+      category,
+      description,
+      saleApply,
+      salePercent,
+      isHotProduct,
+      selectedFile,
+    };
+    console.log("DATA", sendData);
+    // productService
+    //   .newProduct(sendData)
+    //   .then((response) => {
+    //     toast.success("New product added successfully");
+    //     console.log("Response: ", response);
+    //     props.history.push("/");
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error: ", error);
+    //   });
+  };
+
   const [error, setError] = React.useState();
-  const [fileError, setFileError] = React.useState("");
 
   const handleChange = async (e) => {
     setError("");
@@ -47,17 +75,17 @@ function AddNewProduct(props) {
 
   const validateData = (data) => {
     const schema = Joi.object({
-      title: Joi.string().required().messages({
-        "string.empty": "Title is not allowed to be empty",
+      name: Joi.string().required().messages({
+        "string.empty": "Name is not allowed to be empty",
       }),
-      price: Joi.string().required().messages({
-        "string.empty": "Price is not allowed to be empty",
+      phone: Joi.string().required().messages({
+        "string.empty": "Phone is not allowed to be empty",
       }),
-      category: Joi.string().required().messages({
-        "string.empty": "Category is not allowed to be empty",
+      email: Joi.string().required().messages({
+        "string.empty": "Email is not allowed to be empty and ",
       }),
-      description: Joi.string().required().messages({
-        "string.empty": "Description is not allowed to be empty",
+      address: Joi.string().required().messages({
+        "string.empty": "Address is not allowed to be empty",
       }),
     }).options({ abortEarly: false });
 
@@ -77,35 +105,6 @@ function AddNewProduct(props) {
       return;
     }
 
-    if (selectedFile === "") {
-      setFileError("File is not allowed to be empty");
-      return;
-    } else {
-      setFileError("");
-    }
-
-    const sendData = {
-      title: data.title,
-      price: data.price,
-      category: data.category,
-      description: data.description,
-      saleApply,
-      salePercent,
-      isHotProduct,
-      selectedFile,
-    };
-    console.log("DATA", sendData);
-    // productService
-    //   .newProduct(sendData)
-    //   .then((response) => {
-    //     toast.success("New product added successfully");
-    //     console.log("Response: ", response);
-    //     props.history.push("/");
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error: ", error);
-    //   });
-
     console.log("Validate Successfully");
   };
 
@@ -116,31 +115,37 @@ function AddNewProduct(props) {
           <div class="col-lg-5 center p-50 background-white b-r-6">
             <h3>New Product</h3>
             <form>
-              <div class="m-b-5">
-                <InputField
-                  name="title"
-                  label="Title"
-                  error={error}
-                  value={data.name}
-                  onChange={handleChange}
+              <div class="form-group m-b-5">
+                <label class="form-label">Title</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={title}
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                  }}
                 />
               </div>
-              <div class="m-b-5">
-                <InputField
-                  name="price"
-                  label="Price"
-                  error={error}
-                  value={data.name}
-                  onChange={handleChange}
+              <div class="form-group m-b-5">
+                <label class="form-label">Price</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={price}
+                  onChange={(e) => {
+                    setPrice(e.target.value);
+                  }}
                 />
               </div>
-              <div class=" m-b-10">
-                <InputField
-                  name="category"
-                  label="Category"
-                  error={error}
-                  value={data.name}
-                  onChange={handleChange}
+              <div class="form-group m-b-10">
+                <label class="form-label">Category</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={category}
+                  onChange={(e) => {
+                    setCategory(e.target.value);
+                  }}
                 />
               </div>
 
@@ -172,19 +177,16 @@ function AddNewProduct(props) {
               <div class="form-group m-b-10">
                 <label class="form-label">Description</label>
                 <textarea
-                  name="description"
+                  name=""
                   id=""
                   cols="30"
                   rows="5"
                   className="form-control"
-                  value={data.description}
-                  onChange={handleChange}
+                  value={description}
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
                 ></textarea>
-                {error && error.errorData.details.description && (
-                  <p style={{ color: "red" }}>
-                    {error.errorData.details.description}
-                  </p>
-                )}
               </div>
               <div>
                 <FileBase
@@ -192,26 +194,20 @@ function AddNewProduct(props) {
                   multiple={false}
                   onDone={({ base64 }) => setSelectedFile(base64)}
                 />
-                {fileError !== "" && (
-                  <p style={{ color: "red" }}>
-                    File is not allowed to be empty
-                  </p>
-                )}
               </div>
-              <div className="m-t-5 m-b-10">
-                <Form.Check
-                  type="checkbox"
-                  label="Mark as Hot Product"
-                  size="lg"
-                  // disabled={disabled}
-                  // checked={booking.oneWay}
-                  checked={isHotProduct}
-                  onChange={(e) => {
-                    setIsHotProduct(e.target.checked);
-                    console.log("hot", e.target.checked);
-                  }}
-                />
-              </div>
+              <Form.Check
+                type="checkbox"
+                label="Mark as Hot Product"
+                size="lg"
+                // disabled={disabled}
+                // checked={booking.oneWay}
+                checked={isHotProduct}
+                onChange={(e) => {
+                  setIsHotProduct(e.target.checked);
+                  console.log("hot", e.target.checked);
+                }}
+              />
+
               <div class="form-group">
                 <button
                   class="btn btn-info"

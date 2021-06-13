@@ -30,7 +30,7 @@ function ShoppingCart() {
               data.map((book, index) => <CartProduct key={index} book={book} />)
             )}
           </table>
-          <a href="/checkout" className="btn icon-left float-right">
+          <a href="/shippingDetails" className="btn icon-left float-right">
             <span>Proceed to Checkout</span>
           </a>
         </div>

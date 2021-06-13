@@ -19,7 +19,7 @@ function RBNavbar() {
         </Nav>
         <Nav>
           <Nav.Link href="/">Home</Nav.Link>
-
+          <Nav.Link href="/contact">Contact</Nav.Link>
           <Nav.Link href="/addNewProduct">Add New Product</Nav.Link>
           <Nav.Link href="/productsTable">Admin Products Table</Nav.Link>
           <Nav.Link href="/shoppingCart">Cart</Nav.Link>

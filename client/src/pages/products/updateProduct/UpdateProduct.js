@@ -17,6 +17,8 @@ function UpdateProduct(props) {
     isHotProduct: "",
     selectedFile: "",
   });
+
+  const [fileError, setFileError] = React.useState("");
   // const [title, setTitle] = React.useState(product.title);
   // const [price, setPrice] = React.useState(product.price);
   // const [category, setCategory] = React.useState(product.category);
@@ -49,16 +51,25 @@ function UpdateProduct(props) {
     //   isHotProduct,
     // };
     console.log("DATA", product);
-    productService
-      .updateProduct(product._id, product)
-      .then((response) => {
-        toast.success("Product updated successfully");
-        props.history.push("/productsTable");
-        console.log("Response: ", response);
-      })
-      .catch((error) => {
-        console.log("Error: ", error);
-      });
+    console.log("Selected", product.selectedFile);
+    if (product.selectedFile === undefined) {
+      setFileError("File is not allowed to be empty");
+      return;
+    } else {
+      setFileError("");
+    }
+
+    console.log("DATA", product);
+    // productService
+    //   .updateProduct(product._id, product)
+    //   .then((response) => {
+    //     toast.success("Product updated successfully");
+    //     props.history.push("/productsTable");
+    //     console.log("Response: ", response);
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error: ", error);
+    //   });
   };
 
   const handleChange = async (e) => {
@@ -93,6 +104,7 @@ function UpdateProduct(props) {
               <label class="form-label">Title</label>
               <input
                 type="text"
+                name="title"
                 className="form-control"
                 value={product.title}
                 onChange={handleChange}
@@ -102,6 +114,7 @@ function UpdateProduct(props) {
               <label class="form-label">Price</label>
               <input
                 type="text"
+                name="price"
                 className="form-control"
                 value={product.price}
                 onChange={handleChange}
@@ -111,6 +124,7 @@ function UpdateProduct(props) {
               <label class="form-label">Category</label>
               <input
                 type="text"
+                name="category"
                 className="form-control"
                 value={product.category}
                 onChange={handleChange}
@@ -119,6 +133,7 @@ function UpdateProduct(props) {
 
             <Form.Check
               type="switch"
+              name="saleApply"
               id="custom-switch"
               label="Apply Sale"
               size="lg"
@@ -130,6 +145,7 @@ function UpdateProduct(props) {
                 <label class="form-label">Sale Percent</label>
                 <input
                   type="text"
+                  name="salePercent"
                   className="form-control"
                   value={product.salePercent}
                   onChange={handleChange}
@@ -140,7 +156,7 @@ function UpdateProduct(props) {
             <div class="form-group m-b-10">
               <label class="form-label">Description</label>
               <textarea
-                name=""
+                name="description"
                 id=""
                 cols="30"
                 rows="5"
@@ -155,21 +171,19 @@ function UpdateProduct(props) {
                 multiple={false}
                 onDone={({ base64 }) => handleFileChange(base64)}
               />
+              {fileError !== "" && (
+                <p style={{ color: "red" }}>File is not allowed to be empty</p>
+              )}
             </div>
-
-            <Form.Check
-              type="checkbox"
-              label="Mark as Hot Product"
-              size="lg"
-              // disabled={disabled}
-              // checked={booking.oneWay}
-              checked={product.isHotProduct}
-              // onChange={(e) => {
-              //   setProduct([...product, e.target.checked]);
-              //   console.log("hot", e.target.checked);
-              // }}
-              onChange={handleCheckChange}
-            />
+            <div className="m-b-10 m-t-5">
+              <Form.Check
+                type="checkbox"
+                label="Mark as Hot Product"
+                size="lg"
+                checked={product.isHotProduct}
+                onChange={handleCheckChange}
+              />
+            </div>
 
             <div class="form-group">
               <button class="btn btn-info" type="button" onClick={handleSubmit}>
