@@ -56,7 +56,7 @@ function ProductDetail(props) {
 
     const saveCookieData = cookies.get("cart");
     console.log("saveCookieData", saveCookieData);
-    return props.history.push("/cart");
+    return props.history.push("/shoppingCart");
   };
 
   return (
