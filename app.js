@@ -42,10 +42,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(busboyBodyParser());
-app.use("/easypaisa-test", indexRouter);
+app.use("/", indexRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/upload", usersRouter);
-app.use("/api/easypaisa", easypaisaRouter);
 app.use("/api/order", orderRouter);
 
 app.use(express.static(path.join(__dirname, "client/build")));
