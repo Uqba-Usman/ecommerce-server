@@ -42,7 +42,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(busboyBodyParser());
-app.use("/", indexRouter);
+
 app.use("/api/products", productsRouter);
 app.use("/api/upload", usersRouter);
 app.use("/api/order", orderRouter);
