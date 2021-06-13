@@ -4,5 +4,19 @@
   "db2": "mongodb+srv://muqba:khuzaima@cluster0.j88r4.mongodb.net/test",
   "db": "mongodb+srv://muqba:khuzaima@cluster0.j88r4.mongodb.net/ecommerce?retryWrites=true&w=majority",
   "sessionSecret": "usmanSessionSecretCat",
-  "env": "production"
+  "env": "production",
+  "iamUser": "AKIAWMQXFPATJA3OM6EK",
+  "iamSecret": "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",
+  "client-ID": "c58e31c4-6f0f-4f25-8a87-94f72dbe92be",
+  "client-secret": "fH8cL5pW7xX0lS5mG1sD4aS1cG4bY8eP6kT1qK2oY1sF7oY0wB",
+  "JAZZCASH_MERCHANT_ID": "MC20081",
+  "JAZZCASH_PASSWORD": "2yg9x8a1d0",
+  "JAZZCASH_INTEGERITY_SALT": "8tv0886v14",
+  "JAZZCASH_CURRENCY_CODE": "PKR",
+  "JAZZCASH_LANGUAGE": "EN",
+  "JAZZCASH_API_VERSION_1": "1.1",
+  "JAZZCASH_API_VERSION_2": "2.0",
+  "JAZZCASH_RETURN_URL": "https://localhost:4000/",
+  "JAZZCASH_HTTP_POST_URL": "https://sandbox.jazzcash.com.pk/ApplicationAPI/API/2.0/Purchase/DoMWalletTransaction",
+  "BASE_URL": "https://localhost:4000"
 }
