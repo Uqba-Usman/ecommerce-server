@@ -10,10 +10,8 @@ var cors = require("cors");
 const busboy = require("connect-busboy");
 const busboyBodyParser = require("busboy-body-parser");
 
-var indexRouter = require("./routes/index");
 var productsRouter = require("./routes/products");
-var usersRouter = require("./routes/users");
-var easypaisaRouter = require("./routes/easypaisa");
+
 var orderRouter = require("./routes/order");
 
 var app = express();
@@ -44,7 +42,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(busboyBodyParser());
 
 app.use("/api/products", productsRouter);
-app.use("/api/upload", usersRouter);
 app.use("/api/order", orderRouter);
 
 app.use(express.static(path.join(__dirname, "client/build")));
