@@ -6,13 +6,12 @@ var logger = require("morgan");
 var config = require("config");
 const mongoose = require("mongoose");
 var cors = require("cors");
-
 const busboy = require("connect-busboy");
 const busboyBodyParser = require("busboy-body-parser");
 
 var productsRouter = require("./routes/products");
-
 var orderRouter = require("./routes/order");
+var notesRouter = require("./routes/notes");
 var userRouter = require("./routes/user");
 
 var app = express();
@@ -44,6 +43,7 @@ app.use(busboyBodyParser());
 
 app.use("/api/products", productsRouter);
 app.use("/api/order", orderRouter);
+app.use("/api/notes", notesRouter);
 app.use("/api/user", userRouter);
 
 app.use(express.static(path.join(__dirname, "client/build")));

@@ -46,13 +46,14 @@ function ProductDetail(props) {
       } else if (cart[index].quantity != newCart.quantity) {
         console.log("Quantity is not Same");
         cart[index] = newCart;
-        await cookies.set("cart", cart);
+        await cookies.set("cart", cart, { path: "/" });
         return props.history.push("/shoppingCart");
       }
     }
 
     cart.push(newCart);
-    await cookies.set("cart", cart);
+    const result = await cookies.set("cart", cart, { path: "/" });
+    console.log("RESU: ", result);
 
     const saveCookieData = cookies.get("cart");
     console.log("saveCookieData", saveCookieData);

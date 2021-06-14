@@ -34,7 +34,7 @@ const CartProduct = ({ book }) => {
     cookieData.splice(index, 1);
     cookies.set("cart", cookieData);
     console.log("CookieData", cookieData);
-    window.location.reload();
+    window.location.reload(false);
   };
   return (
     <tr>

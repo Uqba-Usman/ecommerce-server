@@ -4,7 +4,20 @@ class AdminService extends GenericService {
   constructor() {
     super();
   }
-  login = (email, password) =>
+  adminLogin = (email, password) =>
+    new Promise((resolve, reject) => {
+      this.post("/api/user/admin/login", { email, password })
+        .then((token) => {
+          localStorage.setItem("token", token);
+          console.log("TOKEN", token);
+          resolve(token);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+
+  userLogin = (email, password) =>
     new Promise((resolve, reject) => {
       this.post("/api/user/login", { email, password })
         .then((token) => {
@@ -16,6 +29,9 @@ class AdminService extends GenericService {
           reject(err);
         });
     });
+
+  userSignup = (name, email, password) =>
+    this.post("/api/user/signup", { name, email, password });
 
   logout = () => {
     localStorage.removeItem("token");

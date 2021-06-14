@@ -23,6 +23,12 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import adminService from "./services/AdminService";
 import RBTopbar from "./RBNavbar/RBTopbar";
 import RBFooter from "./RBNavbar/RBFooter";
+import Login from "./pages/register/Login";
+import Signup from "./pages/register/Signup";
+import Contact from "./pages/contact/Contact";
+
+import QueryList from "./pages/query/QueryList";
+import QueryChat from "./pages/query/QueryChat";
 
 function App() {
   return (
@@ -57,6 +63,8 @@ function App() {
               />
               <Route path="/productsTable" component={AdminTable} exact />
               <Route path="/addNewProduct" component={AddNewProduct} exact />
+              <Route path="/queryChat/:name" component={QueryChat} exact />
+              <Route path="/adminQueryPanel" component={QueryList} exact />
             </Switch>
           ) : (
             <Switch>
@@ -82,6 +90,11 @@ function App() {
                 component={ProductDetail}
                 exact
               />
+              {/* <Route path="/queryChat/:name" component={QueryChat} exact />
+              <Route path="/adminQueryPanel" component={QueryList} exact /> */}
+              <Route path="/contact" component={Contact} exact />
+              <Route path="/login" component={Login} exact />
+              <Route path="/signup" component={Signup} exact />
               <Route path="/" component={Products} exact />
             </Switch>
           )}

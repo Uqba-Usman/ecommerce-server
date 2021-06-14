@@ -23,6 +23,7 @@ function RBNavbar() {
           <Nav>
             <Nav.Link href="/addNewProduct">Add New Product</Nav.Link>
             <Nav.Link href="/productsTable">Admin Products Table</Nav.Link>
+            <Nav.Link href="/adminQueryPanel">Admin Query</Nav.Link>
             <Nav.Link
               onClick={() => {
                 adminService.logout();
@@ -38,6 +39,27 @@ function RBNavbar() {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/adminLogin">Admin Login</Nav.Link>
             <Nav.Link href="/shoppingCart">Cart</Nav.Link>
+
+            {/* <Nav.Link href="/contact">Contact</Nav.Link> */}
+            {adminService.isLoggedIn() ? (
+              <Nav>
+                <Nav.Link href="/contact">Contact</Nav.Link>
+                <Nav.Link
+                  onClick={() => {
+                    adminService.logout();
+                    // window.location.reload();
+                    window.location.href = "/";
+                  }}
+                >
+                  Logout
+                </Nav.Link>
+              </Nav>
+            ) : (
+              <Nav>
+                <Nav.Link href="/login">Login</Nav.Link>
+                <Nav.Link href="/signup">Sigup</Nav.Link>
+              </Nav>
+            )}
           </Nav>
         )}
 

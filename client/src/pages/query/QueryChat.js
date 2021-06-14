@@ -1,16 +1,33 @@
-import React, { useEffect } from "react";
-import adminService from "../../services/AdminService";
+import React from "react";
 import notesService from "../../services/NotesService";
+import adminService from "../../services/AdminService";
+import { toast } from "react-toastify";
 
-function Contact() {
+function QueryChat(props) {
+  console.log("PORPS: ", props.match.params.name);
+
   const [note, setNote] = React.useState("");
   const [notes, setNotes] = React.useState([]);
+
+  React.useEffect(() => {
+    notesService
+      .getChat(props.match.params.name)
+      .then((res) => {
+        console.log("RES: ", res);
+        setNotes(res);
+      })
+      .catch((err) => console.log("ERROR: ", err));
+  }, []);
 
   const sendNote = () => {
     const userLoggedIn = adminService.getLoggedInUser();
     console.log("userLoggedIn: ", userLoggedIn);
 
-    const sendData = { note, postedBy: userLoggedIn };
+    const sendData = {
+      note,
+      postedBy: userLoggedIn,
+      chatName: props.match.params.name,
+    };
     console.log("sendData: ", sendData);
 
     notesService
@@ -18,24 +35,13 @@ function Contact() {
       .then((res) => {
         console.log("RES: ", res);
         window.location.reload();
+        toast.success("Message Sent");
       })
       .catch((err) => {
         console.log("err: ", err);
+        toast.error("Error: Message Not Sent");
       });
   };
-
-  useEffect(() => {
-    console.log("Inside");
-    const name = adminService.getLoggedInUser();
-    console.log("Inside", name.name);
-    notesService
-      .getChat(name.name)
-      .then((res) => {
-        console.log("RES: ", res);
-        setNotes(res);
-      })
-      .catch((err) => console.log("ERROR: ", err));
-  }, [setNotes]);
 
   const refreshMessage = () => {
     window.location.reload();
@@ -51,7 +57,7 @@ function Contact() {
                   {notes.map((comment, index) => (
                     <div key={index} className="p-l-10 ">
                       <h5 className="text-primary">
-                        {comment.postedBy.role == "user" ? "You" : "Admin"}
+                        {comment.postedBy.role == "admin" ? "You" : "User"}
                       </h5>
                       <p className="text-info" style={{ color: "black" }}>
                         {comment.note}
@@ -93,4 +99,4 @@ function Contact() {
   );
 }
 
-export default Contact;
+export default QueryChat;

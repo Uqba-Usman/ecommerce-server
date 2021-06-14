@@ -5,7 +5,10 @@ import adminService from "../../services/AdminService";
 import { toast } from "react-toastify";
 
 function AdminLogin(props) {
-  const [data, setData] = React.useState({ email: "", password: "" });
+  const [data, setData] = React.useState({
+    email: "admin@admin.com",
+    password: "admin",
+  });
 
   const [error, setError] = React.useState();
 
@@ -63,7 +66,7 @@ function AdminLogin(props) {
     console.log("PROPS: ", props);
     console.log("LS", localStorage.getItem("token"));
     adminService
-      .login(data.email, data.password)
+      .adminLogin(data.email, data.password)
       .then((res) => {
         console.log("Login", res);
         toast.success("Login Successfully");

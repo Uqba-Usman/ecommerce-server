@@ -255,7 +255,7 @@ function JazzcashCheckout(props) {
                   <div className="col-md-12 ">
                     <InputField
                       name="jazzcashCNIC"
-                      label="CNIC last 6 digits"
+                      label="CNIC Last 6 digits"
                       error={error}
                       value={data.name}
                       onChange={handleChange}
