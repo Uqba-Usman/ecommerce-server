@@ -10,7 +10,7 @@ const { Feedback } = require("../models/feedback");
 const { ShippingDetail } = require("../models/shippingDetail");
 
 /* GET home page. */
-router.post("/", function (req, res, next) {
+router.post("/", async (req, res, next) => {
   console.log("REQ BODY: ", req.body);
   const dd = new Date();
   const pp_TxnDateTime = date.format(dd, "YYYYMMDDHHmmss");
@@ -52,46 +52,50 @@ router.post("/", function (req, res, next) {
     pp_MobileNumber: req.body.jazzcashDetail.jazzcashPhoneNo,
     pp_CNIC: req.body.jazzcashDetail.jazzcashCNIC,
   };
-
-  axios
-    .post(
+  try {
+    const response = await axios.post(
       "https://sandbox.jazzcash.com.pk/ApplicationAPI/API/2.0/Purchase/DoMWalletTransaction",
       passData
-    )
-    .then(async (response) => {
-      console.log("RESPONSE: ", response.data);
-      if (response.data.pp_ResponseCode != 000) {
-        return res.status(400).send("Error In payment");
-      }
-      console.log("RESPONSE: ", response.data);
-      let shippingDetail = new ShippingDetail();
-      shippingDetail.name = req.body.shippingDetail.name;
-      shippingDetail.email = req.body.shippingDetail.email;
-      shippingDetail.phone = req.body.shippingDetail.phone;
-      shippingDetail.address = req.body.shippingDetail.address;
-      const returnShippingDetail = await shippingDetail.save();
-      console.log("RET: ", returnShippingDetail);
-      console.log("RET Created At: ", returnShippingDetail.createdAt);
-      const cAt = date.format(
-        returnShippingDetail.createdAt,
-        "YYYY-MM-DD HH:mm:ss"
-      );
-      console.log("RET Cat: ", cAt);
-      let orderDetail = new OrderDetail();
-      orderDetail.orderProducts = req.body.orderProducts;
-      orderDetail.orderTotal = req.body.orderTotal;
-      orderDetail.shipTo = returnShippingDetail._id;
-      const orderreturnSave = await orderDetail.save();
+    );
+    console.log("RESPONSE: ", response.data);
+    if (response.data.pp_ResponseCode != 000) {
+      return res.status(400).send("Error In payment");
+    }
+    console.log("RESPONSE: ", response.data);
+    let shippingDetail = new ShippingDetail();
+    shippingDetail.name = req.body.shippingDetail.name;
+    shippingDetail.email = req.body.shippingDetail.email;
+    shippingDetail.phone = req.body.shippingDetail.phone;
+    shippingDetail.address = req.body.shippingDetail.address;
+    const returnShippingDetail = await shippingDetail.save();
+    console.log("RET: ", returnShippingDetail);
+    console.log("RET Created At: ", returnShippingDetail.createdAt);
+    const cAt = date.format(
+      returnShippingDetail.createdAt,
+      "YYYY-MM-DD HH:mm:ss"
+    );
+    console.log("RET Cat: ", cAt);
+    let orderDetail = new OrderDetail();
+    orderDetail.orderProducts = req.body.orderProducts;
+    orderDetail.orderTotal = req.body.orderTotal;
+    orderDetail.shipTo = returnShippingDetail._id;
+    const orderreturnSave = await orderDetail.save();
 
-      console.log("orderreturnSave: ", orderreturnSave);
+    console.log("orderreturnSave: ", orderreturnSave);
 
-      // const orderGet = await OrderDetail.find({})
-      //   .populate("orderProducts")
-      //   .populate("shipTo");
-      // console.log("ORDER GET: ", orderGet);
-      res.send(orderreturnSave);
-    })
-    .catch((err) => console.log("ERROR: ", err));
+    // const orderGet = await OrderDetail.find({})
+    //   .populate("orderProducts")
+    //   .populate("shipTo");
+    // console.log("ORDER GET: ", orderGet);
+    res.send(orderreturnSave);
+  } catch (error) {
+    console.log("ERROR: ", error);
+  }
+
+  // .then(async (response) => {
+
+  // })
+  // .catch((err) => console.log("ERROR: ", err));
 });
 
 router.post("/feedback", async (req, res, next) => {
