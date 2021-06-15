@@ -78,6 +78,7 @@ function JazzcashCheckout(props) {
       .orderProduct(sendData)
       .then((res) => {
         console.log("Res: ", res);
+        cookies.remove("cart");
         toast.success("Order Complete");
         props.history.push({
           pathname: "/checkoutComplete",
