@@ -5,6 +5,7 @@ import Pagination from "../../../component/pagination/Pagination";
 import SearchBox from "../../../component/searchBox/SearchBox";
 
 import SingleProduct from "../../../component/products/SingleProduct";
+import CarouselSlide from "../../../component/carousel/CarouselSlide";
 import _ from "lodash";
 
 function Products() {
@@ -63,33 +64,38 @@ function Products() {
   };
 
   return (
-    <div className="container">
-      <div class="col-lg-4 center pb-5">
-        <SearchBox value={searchQuery} onChange={handleSearch} />
+    <>
+      <div className="pb-5">
+        <CarouselSlide />
       </div>
-      {data.length === 0 ? (
-        <p>There is no Product available</p>
-      ) : (
-        <div className="shop">
-          <div className="row">
-            {data.map((pd, index) => (
-              <SingleProduct key={index} product={pd} />
-            ))}
-          </div>
+      <div className="container">
+        <div class="col-lg-4 center pb-5">
+          <SearchBox value={searchQuery} onChange={handleSearch} />
         </div>
-      )}
+        {data.length === 0 ? (
+          <p>There is no Product available</p>
+        ) : (
+          <div className="shop">
+            <div className="row">
+              {data.map((pd, index) => (
+                <SingleProduct key={index} product={pd} />
+              ))}
+            </div>
+          </div>
+        )}
 
-      <Pagination
-        itemsCount={totalCount}
-        pageSize={pageSize}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
+        <Pagination
+          itemsCount={totalCount}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
 
-      {/* {productsData.map((pd, index) => (
+        {/* {productsData.map((pd, index) => (
             <SingleProduct key={index} product={pd} />
           ))} */}
-    </div>
+      </div>
+    </>
   );
 }
 

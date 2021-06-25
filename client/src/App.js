@@ -47,11 +47,8 @@ function App() {
 
       <RBTopbar />
       <RBNavbar />
-      <div
-        id="page-content"
-        className="m-t-20 m-b-20"
-        style={{ minHeight: "200px" }}
-      >
+      <div>
+        {/* id="page-content" className="m-t-20 m-b-20"  style={{ minHeight: "200px" }} */}
         <Switch>
           {adminService.isAdmin() ? (
             <Switch>

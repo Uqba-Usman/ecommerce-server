@@ -11,7 +11,15 @@ function RBNavbar() {
       bg="light"
       variant="light"
     >
-      <Navbar.Brand href="#home">Store</Navbar.Brand>
+      <Navbar.Brand href="/">
+        <img
+          src="logo store.png"
+          width="130"
+          height="34"
+          className="d-inline-block align-top"
+          alt="React Bootstrap logo"
+        />
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
