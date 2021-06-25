@@ -11,10 +11,8 @@ function CarouselSlide() {
       disableButtonsControls={true}
     >
       <img src="gcrocery.jpg" alt="Image1" className="sliderimg" />
-      <img src="MINISOstore.jpg" alt="Image2" className="sliderimg" />
       <img src="shutterstock.jpg" alt="Image2" className="sliderimg" />
-      {/* <img src="images/parallax/3.jpg" alt="Image1" className="sliderimg" />
-        <img src="images/parallax/3.jpg" alt="Image1" className="sliderimg" /> */}
+      <img src="MINISOstore.jpg" alt="Image3" className="sliderimg" />
     </AliceCarousel>
   );
 }
