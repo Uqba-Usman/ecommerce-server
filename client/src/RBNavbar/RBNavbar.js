@@ -13,7 +13,8 @@ function RBNavbar() {
     >
       <Navbar.Brand href="/">
         <img
-          src="logo store.png"
+          // src="logo store.png"
+          src="capture.png"
           width="130"
           height="34"
           className="d-inline-block align-top"

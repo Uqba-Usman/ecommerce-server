@@ -7,6 +7,7 @@ import SearchBox from "../../../component/searchBox/SearchBox";
 import SingleProduct from "../../../component/products/SingleProduct";
 import CarouselSlide from "../../../component/carousel/CarouselSlide";
 import _ from "lodash";
+import CarouselContainer from "../../../component/carousel/ContainerCarousel";
 
 function Products() {
   // console.log("PROPS:", sendData);
@@ -66,7 +67,8 @@ function Products() {
   return (
     <>
       <div className="pb-5">
-        <CarouselSlide />
+        {/* <CarouselSlide /> */}
+        <CarouselContainer />
       </div>
       <div className="container">
         <div class="col-lg-4 center pb-5">
