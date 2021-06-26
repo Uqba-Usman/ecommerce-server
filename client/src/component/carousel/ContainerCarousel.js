@@ -5,8 +5,13 @@ import { Carousel } from "react-bootstrap";
 function CarouselContainer() {
   return (
     <Carousel fade={true} controls={false} pause={false}>
-      <Carousel.Item interval={2000}>
-        <img className="d-block w-100" src="gcrocery.jpg" alt="First slide" />
+      <Carousel.Item interval={2000} style={{ height: "300px" }}>
+        <img
+          style={{ height: "300px" }}
+          className="d-block w-100"
+          src="gcrocery.jpg"
+          alt="First slide"
+        />
         <Carousel.Caption>
           <h3 style={{ color: "white" }}>First slide </h3>
           <p style={{ color: "white" }}>
@@ -14,8 +19,9 @@ function CarouselContainer() {
           </p>
         </Carousel.Caption>
       </Carousel.Item>
-      <Carousel.Item interval={2000}>
+      <Carousel.Item interval={2000} style={{ height: "300px" }}>
         <img
+          style={{ height: "300px" }}
           className="d-block w-100"
           src="MINISOstore.jpg"
           alt="Second slide"
@@ -28,8 +34,9 @@ function CarouselContainer() {
         </Carousel.Caption>
       </Carousel.Item>
 
-      <Carousel.Item interval={2000}>
+      <Carousel.Item style={{ height: "300px" }} interval={2000}>
         <img
+          style={{ height: "300px" }}
           className="d-block w-100"
           src="shutterstock.jpg"
           alt="Third slide"
@@ -42,8 +49,13 @@ function CarouselContainer() {
         </Carousel.Caption>
       </Carousel.Item>
 
-      <Carousel.Item interval={2000}>
-        <img className="d-block w-100" src="gcrocery.jpg" alt="Fourth slide" />
+      <Carousel.Item style={{ height: "300px" }} interval={2000}>
+        <img
+          style={{ height: "300px" }}
+          className="d-block w-100"
+          src="gcrocery.jpg"
+          alt="Fourth slide"
+        />
         <Carousel.Caption>
           <h3 style={{ color: "white" }}>Fourth slide </h3>
           <p style={{ color: "white" }}>
@@ -52,8 +64,9 @@ function CarouselContainer() {
         </Carousel.Caption>
       </Carousel.Item>
 
-      <Carousel.Item interval={2000}>
+      <Carousel.Item style={{ height: "300px" }} interval={2000}>
         <img
+          style={{ height: "300px" }}
           className="d-block w-100"
           src="MINISOstore.jpg"
           alt="Fifth slide"
