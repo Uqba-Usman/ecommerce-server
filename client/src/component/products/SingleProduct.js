@@ -16,7 +16,7 @@ function SingleProduct({ product }) {
             <a href={`/products/productDetail/${product._id}`}>
               <img
                 src={product.selectedFile}
-                src="polo/images/shop/products/2.jpg"
+                // src="polo/images/shop/products/2.jpg"
               ></img>
             </a>
             {product.isHotProduct && <span className="product-hot">HOT</span>}
