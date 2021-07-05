@@ -14,7 +14,7 @@ function Products() {
   const [products, setProducts] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize, setPageSize] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
   const [books, setBooks] = useState([]);
   const [sortColumn, setSortColumn] = useState({ path: "title", order: "asc" });

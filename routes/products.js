@@ -5,8 +5,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get("/", async (req, res, next) => {
+  console.log("Fetching products");
   const products = await Product.find({});
-
+console.log("Products Fetched: ", products);
   res.send(JSON.stringify(products));
 });
 

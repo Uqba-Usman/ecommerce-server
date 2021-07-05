@@ -8,10 +8,10 @@ const PoloTopBar = () => {
           <div className="col-md-6">
             <ul className="top-menu">
               <li>
-                <a href="#">Phone: +1 (234) 567-890</a>
+                <a href="#">Phone: +9234567890</a>
               </li>
               <li>
-                <a href="#">Email: muqbausman@gmail.com</a>
+                <a href="#">Email: ecommerce@gmail.com</a>
               </li>
             </ul>
           </div>
